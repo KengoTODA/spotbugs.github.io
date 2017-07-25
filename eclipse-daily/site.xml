@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+
+   <description url="https://spotbugs.github.io/eclipse-daily">
+      Eclipse update site for SpotBugs.
+   </description>
+
+   <feature url="features/com.github.spotbugs.plugin.eclipse_3.1.0.20170725-1501016685199.jar"
+            id="com.github.spotbugs.plugin.eclipse"
+            version="3.1.0.20170725-1501016685199">
+      <category name="SpotBugs"/>
+   </feature>
+
+   <category-def name="SpotBugs" label="SpotBugs">
+      <description>
+         SpotBugs is a program which uses static analysis to look for bugs in Java code.
+      </description>
+   </category-def>
+
+</site>
