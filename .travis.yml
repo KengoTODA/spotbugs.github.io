@@ -27,7 +27,7 @@ before_deploy:
   - git config user.email "travis@spotbugs.github.io"
   - git config user.name "Deployment Bot (from Travis CI)"
   - git add eclipse-daily
-  - git commit -m 'Update contents for Eclipse Daily Update Site'
+  - git commit -m "Update contents for Eclipse Daily Update Site by build ${TRAVIS_BUILD_NUMBER}"
 
 deploy:
   provider: script
