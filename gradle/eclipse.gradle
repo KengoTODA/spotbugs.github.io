@@ -1,0 +1,36 @@
+import org.gradle.plugins.ide.eclipse.model.AccessRule
+
+apply plugin: 'eclipse'
+
+tasks.eclipse.dependsOn(cleanEclipse)
+
+eclipse {
+  project {
+//    natures = 'org.eclipse.jdt.core.javanature'
+    natures 'org.eclipse.pde.PluginNature'
+//    natures = 'edu.umd.cs.findbugs.plugin.eclipse.findbugsNature'
+
+//    buildCommand 'org.eclipse.jdt.core.javabuilder'
+
+    buildCommand 'org.eclipse.pde.ManifestBuilder'
+    buildCommand 'org.eclipse.pde.SchemaBuilder'
+//    buildCommand  = 'edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder'
+  }
+
+  classpath {
+    defaultOutputDir = file('classesEclipse')
+    downloadSources = true
+    downloadJavadoc = true
+    containers 'org.eclipse.pde.core.requiredPlugins'
+
+    file {
+      whenMerged {
+        def jre = entries.find { it.path.contains 'org.eclipse.jdt.launching.JRE_CONTAINER' }
+        jre.accessRules.add(new AccessRule('accessible', 'com/sun/management/*'))
+        jre.accessRules.add(new AccessRule('nonaccessible', 'com/sun/**'))
+        jre.accessRules.add(new AccessRule('accessible', 'com/apple/eawt/*'))
+        jre.accessRules.add(new AccessRule('nonaccessible', 'com/apple/**'))
+      }
+    }
+  }
+}
