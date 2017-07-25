@@ -23,9 +23,8 @@ before_deploy:
 deploy:
   provider: pages
   skip_cleanup: true
-  all_branches: true
 #  target_branch: master
   github_token: $GITHUB_TOKEN
-#  on:
-#    branch: master
+  on:
+    branch: daily-release
 #    condition: $TRAVIS_EVENT_TYPE = cron
