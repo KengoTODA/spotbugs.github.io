@@ -23,8 +23,11 @@ before_deploy:
 deploy:
   provider: pages
   skip_cleanup: true
-#  target_branch: master
+  local_dir: ${TRAVIS_BUILD_DIR}
+  target_branch: master
   github_token: $GITHUB_TOKEN
   on:
     branch: daily-release
+#    branch: master
+#    repo: spotbugs/spotbugs.github.io
 #    condition: $TRAVIS_EVENT_TYPE = cron
