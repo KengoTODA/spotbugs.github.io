@@ -18,14 +18,19 @@ script:
 before_deploy:
   - rm -rf ${TRAVIS_BUILD_DIR}/eclipse-daily
   - cp -R /tmp/spotbugs/eclipsePlugin/build/site/eclipse-daily ${TRAVIS_BUILD_DIR}
+  # https://docs.travis-ci.com/user/private-dependencies/#API-Token
+  - echo machine github.com >> ~/.netrc
+  - echo login ${GITHUB_TOKEN} >> ~/.netrc
+  - cd ${TRAVIS_BUILD_DIR}
+  - git config user.email "travis@spotbugs.github.io"
+  - git config user.name "Deployment Bot (from Travis CI)"
+  - git commit .
+  - git commit -m 'Update contents for Eclipse Daily Update Site'
 
-# https://docs.travis-ci.com/user/deployment/pages/
 deploy:
-  provider: pages
+  provider: script
   skip_cleanup: true
-  local_dir: ${TRAVIS_BUILD_DIR}
-  target_branch: master
-  github_token: $GITHUB_TOKEN
+  script: git push
   on:
     branch: daily-release
 #    branch: master
