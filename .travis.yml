@@ -16,12 +16,14 @@ script:
   - ./gradlew :eclipsePlugin:eclipseSite
 
 before_deploy:
+  - cd ${TRAVIS_BUILD_DIR}
+  - git checkout ${TRAVIS_BRANCH}
   - rm -rf ${TRAVIS_BUILD_DIR}/eclipse-daily
-  - cp -R /tmp/spotbugs/eclipsePlugin/build/site/eclipse-daily ${TRAVIS_BUILD_DIR}
+  - cp -R /tmp/spotbugs/eclipsePlugin/build/site/eclipse-daily .
+  # To push changes via https, store private token to ~/.netrc
   # https://docs.travis-ci.com/user/private-dependencies/#API-Token
   - echo machine github.com >> ~/.netrc
   - echo login ${GITHUB_TOKEN} >> ~/.netrc
-  - cd ${TRAVIS_BUILD_DIR}
   - git config user.email "travis@spotbugs.github.io"
   - git config user.name "Deployment Bot (from Travis CI)"
   - git add eclipse-daily
